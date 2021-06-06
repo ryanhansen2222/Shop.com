@@ -12,6 +12,8 @@ Node VS Adonis
 Firebase vs MYSQL
 
 Features include 
+- CRUD Shopping Cart Items
+- Update: Edit quantity
 
 ### Testing:
 White box: Unit testing
