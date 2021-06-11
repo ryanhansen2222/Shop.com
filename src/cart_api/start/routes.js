@@ -14,6 +14,12 @@
 */
 
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
-const Route = use('Route')
+const Route = use('Route');
 
-Route.on('/').render('welcome')
+Route.on('/').render('welcome');
+
+Route.get('cart', 'ShoppingCartController.home');
+Route.get('products', 'ProductController.all');
+
+Route.post('add', 'ProductController.add_to_cart');
+Route.post('delete', 'ProductController.delete');

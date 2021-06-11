@@ -9,6 +9,7 @@ class ProductSchema extends Schema {
       table.increments()
       table.timestamps()
       table.integer('quantity')
+      table.string('name')
     })
   }
 

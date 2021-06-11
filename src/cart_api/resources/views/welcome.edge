@@ -10,11 +10,27 @@
     <div class="logo"></div>
     <div class="title"></div>
     <div class="subtitle">
-      <p>AdonisJs simplicity will make you feel confident about your code</p>
-      <p>
-        Don't know where to start? Read the <a href="https://adonisjs.com/docs">documentation</a>.
-      </p>
+
+      {{route('ShoppingCartController.home')}}
+
+      {{cart = ShoppingCartController.home }}
+      @if(cart.length > 0)
+      @each(product in ShoppingCartController.home)
+      <div class = "subtitle">
+        <p>{{ product.name }} [{{ product.quantity }}]</p>
+      </div>
+      @endeach
+      @else
+      <div class = "subtitle">
+        <p>No Items In Shopping Cart</p>
+      </div>
+      @endif
+
     </div>
   </section>
+
+
+
+
 </body>
 </html>
