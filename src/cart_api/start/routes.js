@@ -22,4 +22,5 @@ Route.get('cart', 'ShoppingCartController.home');
 Route.get('products', 'ProductController.all');
 
 Route.post('add', 'ProductController.add_to_cart');
-Route.post('delete', 'ProductController.delete');
+Route.delete('delete', 'ProductController.delete');
+Route.post('create', 'ProductController.create');

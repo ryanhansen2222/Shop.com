@@ -11,15 +11,6 @@ class ProductController {
         const limit = 10;
         const allproduct = await Product.all();
 
-        /*
-        dict = {};
-        for x in allproduct{
-          dict[x.name = x];
-        }
-
-        return dict.toJSON();
-        */
-
         return allproduct.toJSON();
   }
 
@@ -28,57 +19,39 @@ class ProductController {
 
     const product = request.all();
 
-    const posted = await auth.user.product().create({
+    const productID = await Database.table('products').insert({
       name: product.name,
       quantity: 0
-
-
     })
-
-    session.flash({ message: 'Your product has been created' });
-    return 1;
-
-
+    //session.flash({ message: 'Your product has been created' });
+    var message = '200 - New product "' + product.name + '" created';
+    return message;
   }
 
+
+  //Modify cart product quantity to X
   async add_to_cart({request, response, session, auth, params}){
     const product = await Product.query().where('name', request.all().name).update({quantity: request.all().quantity});
 
-    /*var pre = product.quantity;
-    product["quantity"] = request.all().quantity;
-    var post = product.quantity;
-
-    //await product.save();
-    session.flash({ message: 'Your cart has been updated. '});
-
-    return [pre, post];
-    */
-    //return product;
-    return '200 - Success - Cart Updated';
-
-  }
-
-// delete comment call
-  async delete({ response, session, params}) {
-    const product = await Product.query().where('name', request.all().name).update({quantity: 0});
-    session.flash({ message: 'Comment deleted'});
-    return '200 - Success - Item Removed from Cart';
-
-  }
+    //If product does not eist in database, we return error code 409, otherwise success
+    if(product == 0){//Query did not execute
+        return '409 - Failure - ' + product.name + ' Does not exist in DB';
 
 
-    async update ({ response, request, session, params }) {
-    const comment = await Comment.find(params.id);
-
-        comment.text = request.all().text;
-
-
-        await comment.save();
-
-        session.flash({ message: 'Your comment has been updated. '});
-        //return response.route('VideoController.watch', { id: params.video_id });
-        return response.redirect('back');
+    }else{
+        return '200 - Success - ' + product.name + ' has been updated';
     }
+
+
+  }
+
+// delete product from cart
+  async delete({ request, response}) {
+    const product = await Product.query().where('name', request.all().name).update({quantity: 0});
+    //session.flash({ message: 'Comment deleted'});
+    return '200 - Success - ' + product.name + ' removed from Cart';
+
+  }
 
 }
 

@@ -1,0 +1,13 @@
+
+{{getCart()}}
+@if( 1  > 0)
+  @each(product in getCart() )
+<div class = "subtitle">
+  <p>{{ product.name }} [{{ product.quantity }}]</p>
+</div>
+  @endeach
+  @else
+<div class = "subtitle">
+<p>No Items In Shopping Cart</p>
+</div>
+  @endif
